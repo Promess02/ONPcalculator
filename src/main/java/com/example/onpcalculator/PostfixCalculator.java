@@ -83,7 +83,7 @@ public class PostfixCalculator {
                 continue;
             }
             if (isOperator(ch) || ch == '(' || ch == ')') {
-                if (currentToken.length() > 0) {
+                if (!currentToken.isEmpty()) {
                     tokens.add(currentToken.toString());
                     currentToken.setLength(0);
                 }
@@ -93,7 +93,7 @@ public class PostfixCalculator {
             }
         }
 
-        if (currentToken.length() > 0) {
+        if (!currentToken.isEmpty()) {
             tokens.add(currentToken.toString());
         }
 
@@ -109,33 +109,25 @@ public class PostfixCalculator {
     }
 
     private static int precedence(String operator) {
-        switch (operator) {
-            case "+":
-            case "-":
-                return 1;
-            case "*":
-            case "/":
-                return 2;
-            default:
-                return 0; // Lower precedence for parentheses
-        }
+        return switch (operator) {
+            case "+", "-" -> 1;
+            case "*", "/" -> 2;
+            default -> 0; // Lower precedence for parentheses
+        };
     }
 
     private static double applyOperator(double a, double b, String operator) {
-        switch (operator) {
-            case "+":
-                return a + b;
-            case "-":
-                return a - b;
-            case "*":
-                return a * b;
-            case "/":
+        return switch (operator) {
+            case "+" -> a + b;
+            case "-" -> a - b;
+            case "*" -> a * b;
+            case "/" -> {
                 if (b == 0) {
                     throw new ArithmeticException("Division by zero");
                 }
-                return a / b;
-            default:
-                throw new IllegalArgumentException("Invalid operator: " + operator);
-        }
+                yield a / b;
+            }
+            default -> throw new IllegalArgumentException("Invalid operator: " + operator);
+        };
     }
 }

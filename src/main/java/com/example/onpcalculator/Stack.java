@@ -4,9 +4,10 @@ import java.util.EmptyStackException;
 
 public class Stack {
 
-    private String[] stackArray;
+    private final String[] stackArray;
     private int top;
     private int maxCapacity = 200;
+
 
     public Stack() {
         stackArray = new String[maxCapacity];
@@ -43,5 +44,12 @@ public class Stack {
 
     public int getSize() {
         return top + 1;
+    }
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
     }
 }

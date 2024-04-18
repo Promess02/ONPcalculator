@@ -88,16 +88,12 @@ public class PostfixCalculatorTest {
     @Test
     public void testInfixToPostfixString_WithInvalidExpression() {
         String infixExpression = "3 + 5 *";
-        assertThrows(IllegalArgumentException.class, () -> {
-            PostfixCalculator.infixToPostfixString(infixExpression);
-        });
+        assertThrows(IllegalArgumentException.class, () -> PostfixCalculator.infixToPostfixString(infixExpression));
     }
 
     @Test
     public void testInfixToPostfixString_WithMismatchedParentheses() {
         String infixExpression = "3 + (5 * 2";
-        assertThrows(IllegalArgumentException.class, () -> {
-            PostfixCalculator.infixToPostfixString(infixExpression);
-        });
+        assertThrows(IllegalArgumentException.class, () -> PostfixCalculator.infixToPostfixString(infixExpression));
     }
 }
